@@ -1,0 +1,138 @@
+/*: @plugindesc	Simple terrain based stepping sounds
+ * @author Orsoral
+ * @help	This plugin adds step sounds when walking based on terrain. Set terrain to:
+ * 0 for default stepping sound
+ * 1 for hard floors
+ * 2 for squeaky wooden floors
+ * 3 for metallic floors
+ * 4 for carpet flooring
+ *
+ * Watch demo: coming soon
+ *
+ * Audio files not included.
+ *
+ * Place your sounds in the se folder with the following names:
+ * default sounds: step_1 step_2 step_3
+ * hard floors: setp_wood_1 step_wood_2 step_wood_3
+ * squeaky floors: setp_wood_1 step_wood_2 step_wood_3
+ * hard floors: setp_squeak_1 step_squeak_2 step_squeak_3 step_squeak_4
+ * metal floors: setp_metal_1 step_metal_2 step_metal_3 step_metal_4
+ * carpet floors: setp_carpet_1 step_carpet_2 step_carpet_3 step_carpet_4
+ */
+
+  //Get previous move behavior
+  var _Game_Player_executeMove_previousBehavior =  Game_Player.prototype.executeMove;
+
+  //Change behavior of movement
+  Game_Player.prototype.executeMove = function(direction)
+      {
+        //call previous behavior for compatibility
+        _Game_Player_executeMove_previousBehavior.call(this, direction)
+
+        //roll dice
+        var randomSound = Math.floor((Math.random() * 10) + 1);
+
+        //check what terrain player is on
+        var terrainTag = $gamePlayer.terrainTag();
+
+        //If terrainTag is 0, play default stepping sound
+        if (terrainTag == 0)
+        {
+        //play a sound effect based on dice roll
+          if (randomSound >= 7)
+            {
+              AudioManager.playSe({name: "step_1", pan: 0,  pitch: 100, volume: 50});
+            };
+          if (randomSound < 3)
+            {
+              AudioManager.playSe({name: "step_2", pan: 0, pitch: 100, volume: 50});
+            };
+          if (randomSound >= 3 && randomSound < 7)
+            {
+              AudioManager.playSe({name: "step_3", pan: 0,  pitch: 100, volume: 50});
+            };
+          };
+
+        //If terrainTag is 1, play STONE stepping sound
+        if (terrainTag == 1)
+        {
+        //play a sound effect based on dice roll
+          if (randomSound >= 7)
+            {
+              AudioManager.playSe({name: "step_wood_1", pan: 0,  pitch: 100, volume: 50});
+            };
+          if (randomSound < 3)
+            {
+              AudioManager.playSe({name: "step_wood_2", pan: 0, pitch: 100, volume: 50});
+            };
+          if (randomSound >= 3 && randomSound < 7)
+            {
+              AudioManager.playSe({name: "step_wood_3", pan: 0,  pitch: 100, volume: 50});
+            };
+          };
+
+
+        //If terrainTag is 2, play SQUEAKY stepping sound
+        if (terrainTag == 2)
+        {
+        //play a sound effect based on dice roll
+          if (randomSound >= 7)
+            {                   AudioManager.playSe({name: "step_squeak_1", pan: 0,  pitch: 100, volume: 50});
+            };
+          if (randomSound < 3)
+            {
+              AudioManager.playSe({name: "step_squeak_2", pan: 0, pitch: 100, volume: 50});
+            };
+          if (randomSound >= 3 && randomSound < 5)
+            {
+              AudioManager.playSe({name: "step_squeak_3", pan: 0,  pitch: 100, volume: 50});                  };
+          if (randomSound >= 5 && randomSound < 7)
+            {
+              AudioManager.playSe({name: "step_squeak_4", pan: 0,  pitch: 100, volume: 50});
+            };
+          };
+
+          //If terrainTag is 3, play Metal stepping sound
+          if (terrainTag == 3)
+            {
+            //play a sound effect based on dice roll
+            if (randomSound >= 7)
+              {
+                AudioManager.playSe({name: "step_metal_1", pan: 0,  pitch: 100, volume: 50});
+              };
+            if (randomSound < 3)
+              {
+                AudioManager.playSe({name: "step_metal_2", pan: 0, pitch: 100, volume: 50});
+              };
+            if (randomSound >= 3 && randomSound < 5)
+              {
+                AudioManager.playSe({name: "step_metal_3", pan: 0,  pitch: 100, volume: 50});                  };
+            if (randomSound >= 5 && randomSound < 7)
+              {
+                AudioManager.playSe({name: "step_metal_4", pan: 0,  pitch: 100, volume: 50});
+              };
+          };
+
+        //If terrainTag is 4, play Carpet stepping sound
+        if (terrainTag == 4)
+          {
+          //play a sound effect based on dice roll
+          if (randomSound >= 7)
+            {
+              AudioManager.playSe({name: "step_carpet_1", pan: 0,  pitch: 100, volume: 100});
+            };
+          if (randomSound < 3)
+            {
+              AudioManager.playSe({name: "step_carpet_2", pan: 0, pitch: 100, volume: 100});
+            };
+          if (randomSound >= 3 && randomSound < 5)
+            {
+              AudioManager.playSe({name: "step_carpet_3", pan: 0,  pitch: 100, volume: 100});
+            };
+          if (randomSound >= 5 && randomSound < 7)
+            {
+              AudioManager.playSe({name: "step_carpet_4", pan: 0,  pitch: 100, volume: 100});
+            };
+          };
+        };
+//})();
